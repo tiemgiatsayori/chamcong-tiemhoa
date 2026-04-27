@@ -475,6 +475,8 @@
     const scriptURL =
       "https://script.google.com/macros/s/AKfycbzybEe5X3sQlJZCXnsua2PmszH2nPGqdBoTmX9WIMfLEnxHWgnkGWLTy0CjMxhbTYmk/exec";
 
+    const prefix = "oharaflower-";
+
     const submitLocation = document.getElementById("submitLocation");
     const successMsgTemplate = document.getElementById("successMsg").innerHTML;
 
@@ -483,7 +485,7 @@
     const urlParams = new URLSearchParams(window.location.search);
     const shopCode = urlParams.get("code");
 
-    var previousName = localStorage.getItem("name");
+    var previousName = localStorage.getItem(prefix + "name");
     if (
       previousName !== undefined &&
       previousName !== null &&
@@ -495,7 +497,7 @@
     // get the history
     var historyList = loadHistory();
     function loadHistory() {
-      var historyList = localStorage.getItem("historyList");
+      var historyList = localStorage.getItem(prefix + "historyList");
       if (!historyList) {
         historyList = [];
       } else {
@@ -680,7 +682,7 @@
             var now = getFormattedNow();
 
             // save the name
-            localStorage.setItem("name", formData.get("Tên"));
+            localStorage.setItem(prefix + "name", formData.get("Tên"));
 
             // save the history
             historyList.push({
@@ -692,7 +694,7 @@
             if (historyList.length > 5) {
               historyList.shift(); // Remove the oldest item (first item in the array)
             }
-            localStorage.setItem("historyList", JSON.stringify(historyList));
+            localStorage.setItem(prefix + "historyList", JSON.stringify(historyList));
             loadHistory();
 
             let msg = successMsgTemplate
